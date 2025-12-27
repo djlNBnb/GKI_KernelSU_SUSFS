@@ -6,10 +6,6 @@ permissions:
 on:
   workflow_call:  # This allows this workflow to be called from another workflow
     inputs:
-      make_release:
-        required: true
-        type: boolean
-        default: true
       kernelsu_variant:
         required: true
         type: string
@@ -75,9 +71,9 @@ jobs:
         #- sub_level: "136"
         #  os_patch_level: "2022-11"
         #  revision: "r15"
-        - sub_level: "168"
-          os_patch_level: "2023-04"
-          revision: "r9"
+        #- sub_level: "168"
+        #  os_patch_level: "2023-04"
+        #  revision: "r9"
         #- sub_level: "177"
         #  os_patch_level: "2023-07"
         #  revision: "r3"
@@ -99,7 +95,6 @@ jobs:
     uses: ./.github/workflows/gki-kernel.yml
     secrets: inherit
     with:
-      make_release: ${{ inputs.make_release || false }}
       android_version: "android12"
       kernel_version: "5.10"
       sub_level: ${{ matrix.sub_level }}
@@ -115,4 +110,4 @@ jobs:
       supp_op: ${{ inputs.supp_op || false }}
       onlyAk3: ${{ inputs.onlyAk3 || false }}
       build_time: ${{ inputs.build_time || '' }}
-      cancel_susfs: ${{ inputs.cancel_susfs || '' }}
+      cancel_susfs: ${{ inputs.cancel_susfs || false }}
